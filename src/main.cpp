@@ -111,8 +111,8 @@ int main( int argc,char * argv[] ) {
 
     }
 
-  const char* tflite_file = argv[1];
-  const char* label_file = argv[2];
+    const char* tflite_file = argv[1];
+    const char* label_file = argv[2];
 
     cv::Mat frame;
     // Load model
@@ -126,14 +126,15 @@ int main( int argc,char * argv[] ) {
 
 	// Get the names
 	bool result = getFileContent( label_file );
-	if(!result)
-	{
+	if( !result ) {
+
         std::cout << "loading labels failed";
         exit(-1);
-	}
 
-    cv::VideoCapture cap(0);                 // Logitech Webcam
-    if (!cap.isOpened()) {
+    }
+
+    cv::VideoCapture cap( 0 );                 // PiCamera or Webcam
+    if( !cap.isOpened() ) {
         std::cerr << "ERROR: Unable to open the camera \n";
         return 0;
     }
@@ -168,8 +169,7 @@ int main( int argc,char * argv[] ) {
 
     std::cout << "Closing the camera \n";
     cv::destroyAllWindows();
-    std::cout << "Bye! \n";
-
 
   return 0;
+
 }
