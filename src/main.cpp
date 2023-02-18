@@ -1,4 +1,6 @@
-
+/*
+ * Code de detection d'object par tensorflow lite sur linux et raspberry pi
+ * */
 #include <cstdio>
 #include <fstream>
 #include <iostream>
@@ -23,6 +25,7 @@
     exit(1);                                                 \
   }
 
+int numThreads = 4;
 static int g_Width = 300;
 static int g_Height = 300;
 int frame_count = 0;
@@ -117,7 +120,7 @@ int main( int argc,char * argv[] ) {
     TFLITE_MINIMAL_CHECK( model != nullptr );
     // Build the interpreter
     tflite::ops::builtin::BuiltinOpResolver resolver;
-    tflite::InterpreterBuilder(*model.get(), resolver)(&interpreter);
+    tflite::InterpreterBuilder(*model.get(), resolver)( &interpreter, numThreads );
 
     interpreter->AllocateTensors();
 
